@@ -1,24 +1,19 @@
 import java.io.*;
 import java.net.*;
-import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 class ConnectServer implements Runnable {
 
     protected Socket incoming;
-    private static int PORT;
 
     public ConnectServer (Socket incoming)
     {
         this.incoming = incoming;
     }
 
-
     public void run()
     {
         try {
-
-            ServerSocket socket = new ServerSocket(PORT);
 
             while (true)
             {
@@ -27,7 +22,7 @@ class ConnectServer implements Runnable {
 
                 String user = in.readLine();
 
-                out.println("Welcome to Java Chat Application " + user + "...You are running on port: " + PORT + "!!!");
+                out.println("Welcome to Java Chat Application " + user + "...You are running on port: " + incoming.getPort() + "!!!");
                 out.println("In order to start the session, type 'Connect'");
                 out.println("Enter 'BYE' to exit!");
                 out.flush();
