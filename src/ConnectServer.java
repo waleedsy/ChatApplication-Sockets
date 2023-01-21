@@ -1,5 +1,7 @@
 import java.io.*;
 import java.net.*;
+import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
 
 class ConnectServer implements Runnable {
 
@@ -84,6 +86,19 @@ class Packet implements Runnable
             while (true)
             {
                 buf = new byte[1024];
+                DatagramPacket dp = new DatagramPacket(buf, buf.length);
+                ds.receive(dp);
+
+                String response = new String(dp.getData(), 0, dp.getLength());
+                System.out.println(user + ": " + response);
+
+                Scanner scanner = new Scanner(System.in);
+                String msg = scanner.nextLine();
+
+                buf = msg.getBytes();
+                dp = new DatagramPacket(buf, buf.length, ipAddr, userPort);
+                ds.send(dp);
+
             }
 
         }

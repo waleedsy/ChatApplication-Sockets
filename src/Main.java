@@ -9,6 +9,8 @@ public class Main {
         ServerSocket socket = new ServerSocket();
         Socket incoming = socket.accept();
 
+        new Thread(new ConnectServer(incoming)).start();
+
     }
 
 }
